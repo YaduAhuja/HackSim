@@ -20,6 +20,18 @@ configurations {
 	}
 }
 
+tasks.bootRun {
+	val envFile = File(".env")
+	val envVariables = mutableMapOf<String,String>()
+	envFile.forEachLine {
+		val envKeyVal = it.split("=")
+		envVariables[envKeyVal[0]] = envKeyVal[1]
+	}
+	println("Environment Variables parsed : $envVariables")
+	environment.putAll(envVariables)
+}
+
+
 repositories {
 	mavenCentral()
 }
